@@ -5,9 +5,12 @@ fun main(args: Array<String>) {
 //    `Day 1 P1 Main`(input.readLines())
 //    `Day 1 P2 Main`(input.readLines())
 
-    val input = FileReader("C:\\Users\\speed\\adventofcode\\src\\main\\resources\\day2.txt").readLines()
+//    val input = FileReader("C:\\Users\\speed\\adventofcode\\src\\main\\resources\\day2.txt").readLines()
 //    `Day 2 P1 Main`(input)
-    `Day 2 P2 Main`(input)
+//    `Day 2 P2 Main`(input)
+
+    val input = FileReader("/Users/acicchetti/advent-of-code/src/main/resources/day3p1example.txt").readLines()
+    println(Rectangle(input[0]))
 
 }
 

@@ -1,8 +1,6 @@
 class Day2(inputList: List<String>) {
     val inputList: List<String> = inputList
 
-    constructor(inputString: String) : this(inputList = inputString.split(',').map { it.trim() })
-
     fun calcChecksum(): Int {
         var twos = 0
         var threes = 0
