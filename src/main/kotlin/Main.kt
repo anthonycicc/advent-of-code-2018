@@ -1,16 +1,18 @@
-import java.io.FileReader
+import java.io.File
 
 fun main(args: Array<String>) {
-//    val input = FileReader("C:\\Users\\speed\\adventofcode\\src\\main\\resources\\day1.txt")
-//    `Day 1 P1 Main`(input.readLines())
-//    `Day 1 P2 Main`(input.readLines())
+    val reader = object {}::class.java.classLoader
+//    val inputDay1 = reader.getResource("day1.txt").readText().split("\n")
+//    `Day 1 P1 Main`(inputDay1)
+//    `Day 1 P2 Main`(inputDay1)
 
-//    val input = FileReader("C:\\Users\\speed\\adventofcode\\src\\main\\resources\\day2.txt").readLines()
-//    `Day 2 P1 Main`(input)
-//    `Day 2 P2 Main`(input)
+//    val inputDay2 = reader.getResource("day2.txt").readText().split("\n")
+//    `Day 2 P1 Main`(inputDay2)
+//    `Day 2 P2 Main`(inputDay2)
 
-    val input = FileReader("/Users/acicchetti/advent-of-code/src/main/resources/day3p1example.txt").readLines()
-    println(Rectangle(input[0]))
+    val inputDay3 = reader.getResource("day3.txt").readText().split("\n")
+    `Day 3 P1 Main`(inputDay3)
+//    `Day 3 P2 Main`(inputDay3)
 
 }
 
@@ -22,7 +24,7 @@ fun `Day 1 P1 Main`(input: List<String>) {
 fun `Day 1 P2 Main`(input: List<String>) {
     val obj = Day1(input.joinToString("\n"))
     var t = obj.firstReachedTwice()
-    while (t == null){
+    while (t == null) {
 //        println(t)
         t = obj.firstReachedTwice()
     }
@@ -40,3 +42,15 @@ fun `Day 2 P2 Main`(input: List<String>) {
 
     println(obj.checkDiffs())
 }
+
+fun `Day 3 P1 Main`(input: List<String>) {
+    val obj = Day3(input)
+
+    println(obj.checkCollisions())
+}
+
+fun `Day 3 P2 Main`(input: List<String>): Unit {
+    val obj = Day3(input)
+    println(obj.checkIntactClaim())
+}
+
