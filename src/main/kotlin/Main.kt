@@ -14,7 +14,7 @@ fun main(args: Array<String>) {
 //    `Day 3 P1 Main`(inputDay3)
 //    `Day 3 P2 Main`(inputDay3)
 
-    val inputDay4 = reader.getResource("day4example.txt").readText().split("\n")
+    val inputDay4 = reader.getResource("day4.txt").readText().trim().split("\n")
     `Day 4 P1 Main`(inputDay4)
 }
 

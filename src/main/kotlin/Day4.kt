@@ -1,5 +1,7 @@
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
+import java.time.temporal.TemporalUnit
 
 class Day4(inputList: List<String>) {
     private val dataList: List<Entry>
@@ -17,7 +19,20 @@ class Day4(inputList: List<String>) {
     }
 
     fun guardAsleepLongest(): Int {
-        dataList.forEach { println(it) }
+        val guardToTimeAsleep = mutableMapOf<Int, Int>()
+        dataList.groupBy { entry: Entry -> entry.guardNum }
+            .mapValues { it.value.filter { entry: Entry -> entry.type != NewGuard }}
+            .map { Pair(it.key, it.value.partition { it.type == FellAsleep }) }
+            .forEach { guardToTimeAsleep.put(it.first, it.second.first.zip(it.second.second)
+                    .sumBy { pair -> pair.first.dateTime.until(pair.second.dateTime, ChronoUnit.MINUTES).toInt() })
+            }
+
+        println(guardToTimeAsleep)
+
+        return guardToTimeAsleep.maxBy { it.value }?.key ?: 0
+    }
+
+    fun findHighestFrequencyMinute(guardNum: Int): Int {
         return 0
     }
 }
