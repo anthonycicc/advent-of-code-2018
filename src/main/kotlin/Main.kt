@@ -58,6 +58,6 @@ fun `Day 3 P2 Main`(input: List<String>): Unit {
 
 fun `Day 4 P1 Main`(input: List<String>): Unit {
     val obj = Day4(input)
-    println(obj.guardAsleepLongest())
+    println(obj.p1wrapper())
 
 }

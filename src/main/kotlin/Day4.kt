@@ -18,6 +18,15 @@ class Day4(inputList: List<String>) {
         this.dataList = tempList.toList()
     }
 
+    fun p1wrapper(): Int {
+        val guardAsleepLongest = guardAsleepLongest()
+        println("guardAsleepLongest = ${guardAsleepLongest}")
+        val h = findHighestFrequencyMinute(guardAsleepLongest)
+        println("HighestFrequencyMinute = ${h}")
+
+        return h * guardAsleepLongest
+    }
+
     fun guardAsleepLongest(): Int {
         val guardToTimeAsleep = mutableMapOf<Int, Int>()
         dataList.groupBy { entry: Entry -> entry.guardNum }
@@ -33,7 +42,23 @@ class Day4(inputList: List<String>) {
     }
 
     fun findHighestFrequencyMinute(guardNum: Int): Int {
-        return 0
+        val minAsleep = mutableMapOf<Int, Int>()
+        dataList.filter { entry -> (entry.guardNum == guardNum) && (entry.type != NewGuard) }
+            .partition { it.type == FellAsleep }.let {
+                val a = it.first.zip(it.second)
+                    .map { it -> it.first to it.first.dateTime.until(it.second.dateTime, ChronoUnit.MINUTES) }
+
+                for (timeBetween in a) {
+                    for (minute in 0..timeBetween.second) {
+                        val entryInQuestion = (timeBetween.first.dateTime.minute + minute).toInt()
+                        minAsleep[entryInQuestion] = minAsleep.getOrDefault(entryInQuestion, 0) + 1
+                    }
+                }
+            }
+
+        println(minAsleep)
+
+        return minAsleep.maxBy { it.value }?.key ?: 0
     }
 }
 
