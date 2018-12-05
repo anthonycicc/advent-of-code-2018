@@ -10,10 +10,12 @@ fun main(args: Array<String>) {
 //    `Day 2 P1 Main`(inputDay2)
 //    `Day 2 P2 Main`(inputDay2)
 
-    val inputDay3 = reader.getResource("day3.txt").readText().split("\n")
-    `Day 3 P1 Main`(inputDay3)
+//    val inputDay3 = reader.getResource("day3.txt").readText().split("\n")
+//    `Day 3 P1 Main`(inputDay3)
 //    `Day 3 P2 Main`(inputDay3)
 
+    val inputDay4 = reader.getResource("day4example.txt").readText().split("\n")
+    `Day 4 P1 Main`(inputDay4)
 }
 
 fun `Day 1 P1 Main`(input: List<String>) {
@@ -54,3 +56,8 @@ fun `Day 3 P2 Main`(input: List<String>): Unit {
     println(obj.checkIntactClaim())
 }
 
+fun `Day 4 P1 Main`(input: List<String>): Unit {
+    val obj = Day4(input)
+    println(obj.guardAsleepLongest())
+
+}

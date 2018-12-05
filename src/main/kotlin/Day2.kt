@@ -1,5 +1,4 @@
-class Day2(inputList: List<String>) {
-    val inputList: List<String> = inputList
+class Day2(val inputList: List<String>) {
 
     fun calcChecksum(): Int {
         var twos = 0
