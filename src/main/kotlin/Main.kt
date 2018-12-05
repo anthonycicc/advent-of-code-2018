@@ -15,7 +15,8 @@ fun main(args: Array<String>) {
 //    `Day 3 P2 Main`(inputDay3)
 
     val inputDay4 = reader.getResource("day4.txt").readText().trim().split("\n")
-    `Day 4 P1 Main`(inputDay4)
+//    `Day 4 P1 Main`(inputDay4)
+    `Day 4 P2 Main`(inputDay4)
 }
 
 fun `Day 1 P1 Main`(input: List<String>) {
@@ -60,4 +61,9 @@ fun `Day 4 P1 Main`(input: List<String>): Unit {
     val obj = Day4(input)
     println(obj.p1wrapper())
 
+}
+
+fun `Day 4 P2 Main`(input: List<String>) {
+    val obj = Day4(input)
+    println(obj.p2wrapper())
 }

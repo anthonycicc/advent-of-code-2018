@@ -5,17 +5,24 @@ import java.time.temporal.TemporalUnit
 
 class Day4(inputList: List<String>) {
     private val dataList: List<Entry>
+    private val guardList: List<Int>
+
     init {
         val tempList = mutableListOf<Entry>()
         var guardNum = 0
+        val tempGuardList = mutableListOf<Int>()
 
         for (entry in inputList.sorted()) {
             if (entry.find { it == '#' } != null) {
                 guardNum = entry.between("#", " ").toInt()
+                if (!tempGuardList.contains(guardNum)) {
+                    tempGuardList.add(guardNum)
+                }
             }
             tempList.add(Entry(entry, guardNum))
         }
         this.dataList = tempList.toList()
+        this.guardList = tempGuardList
     }
 
     fun p1wrapper(): Int {
@@ -25,6 +32,13 @@ class Day4(inputList: List<String>) {
         println("HighestFrequencyMinute = ${h}")
 
         return h * guardAsleepLongest
+    }
+
+    fun p2wrapper(): Int {
+        val k = guardAsleepOnMostFrequentMinute()
+        println("guard = ${k.first}, minute = ${k.second}")
+
+        return k.first * k.second
     }
 
     fun guardAsleepLongest(): Int {
@@ -56,9 +70,27 @@ class Day4(inputList: List<String>) {
                 }
             }
 
-        println(minAsleep)
-
         return minAsleep.maxBy { it.value }?.key ?: 0
+    }
+
+    // This functio needs to find out how many times a given guard
+    // is asleep on a given minute
+    fun guardTimesAsleepOnThisMinute(guardNum: Int, minute: Int) {
+        dataList.filter { (it.guardNum == guardNum) && (it.type != NewGuard) }
+
+    }
+
+    fun guardAsleepOnMostFrequentMinute(): Pair<Int, Int> {
+        val k = mutableMapOf<Int, Int>()
+
+        println(guardList)
+
+        for (guard in guardList) {
+            println("$guard : ${findHighestFrequencyMinute(guard)}")
+            k[guard] = findHighestFrequencyMinute(guard)
+        }
+
+        return k.maxBy { it.value }?.toPair() ?: Pair(0, 0)
     }
 }
 
