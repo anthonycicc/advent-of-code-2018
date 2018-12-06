@@ -36,7 +36,8 @@ class Day4(inputList: List<String>) {
 
     fun p2wrapper(): Int {
         val k = guardAsleepOnMostFrequentMinute()
-        println("guard = ${k.first}, minute = ${k.second}")
+        guardTimesAsleepOnThisMinute(331, 46)
+//        println("guard = ${k.first}, minute = ${k.second}")
 
         return k.first * k.second
     }
@@ -73,24 +74,34 @@ class Day4(inputList: List<String>) {
         return minAsleep.maxBy { it.value }?.key ?: 0
     }
 
-    // This functio needs to find out how many times a given guard
-    // is asleep on a given minute
-    fun guardTimesAsleepOnThisMinute(guardNum: Int, minute: Int) {
-        dataList.filter { (it.guardNum == guardNum) && (it.type != NewGuard) }
+    fun guardTimesAsleepOnThisMinute(guardNum: Int, minute: Int): Int {
+        val k = dataList.filter { (it.guardNum == guardNum) && (it.type != NewGuard) }
+            .partition { it.type == FellAsleep }.let {
+                it.first.zip(it.second)
+                    .map { it.first.dateTime.rangeTo(it.second.dateTime)}
+                    .map { it: ClosedRange<LocalDateTime> -> it.contains(LocalDateTime.of(it.start.toLocalDate(), it.start.toLocalTime().withMinute(minute)))}
+            }
 
+        return k.count { it -> it }
     }
 
     fun guardAsleepOnMostFrequentMinute(): Pair<Int, Int> {
         val k = mutableMapOf<Int, Int>()
 
-        println(guardList)
-
         for (guard in guardList) {
             println("$guard : ${findHighestFrequencyMinute(guard)}")
-            k[guard] = findHighestFrequencyMinute(guard)
+            k[guard] = guardTimesAsleepOnThisMinute(guard, findHighestFrequencyMinute(guard))
         }
 
-        return k.maxBy { it.value }?.toPair() ?: Pair(0, 0)
+        println(k)
+
+        val guardWithHighestFrequency = k.maxBy { it: Map.Entry<Int, Int> -> it.value}
+
+        println(guardWithHighestFrequency)
+
+        println(findHighestFrequencyMinute(guardWithHighestFrequency?.key ?: 0))
+
+        return Pair(guardWithHighestFrequency?.key ?: 0, findHighestFrequencyMinute(guardWithHighestFrequency?.key ?: 0))
     }
 }
 
